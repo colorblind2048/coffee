@@ -1,0 +1,5 @@
+const message=document.getElementById('authMessage');
+const users=()=>JSON.parse(localStorage.getItem('coffeeUsers')||'[]');
+const form=document.querySelector('form');
+if(document.getElementById('registerForm')) form.addEventListener('submit',e=>{e.preventDefault(); const user={name:registerName.value,email:registerEmail.value,password:registerPassword.value}; const list=users(); if(list.some(x=>x.email===user.email)){message.textContent='该邮箱已注册，请直接登录';return;} list.push(user);localStorage.setItem('coffeeUsers',JSON.stringify(list));message.textContent='注册成功，正在前往登录…';setTimeout(()=>location.href='login.html',700);});
+if(document.getElementById('loginForm')) form.addEventListener('submit',e=>{e.preventDefault(); const ok=users().find(x=>x.email===loginEmail.value&&x.password===loginPassword.value); if(!ok){message.textContent='邮箱或密码不正确（可先注册体验）';return;} localStorage.setItem('coffeeCurrentUser',JSON.stringify(ok));message.textContent=`欢迎回来，${ok.name}！`;setTimeout(()=>location.href='index.html',700);});
